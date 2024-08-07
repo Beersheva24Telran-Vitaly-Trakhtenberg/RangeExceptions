@@ -13,6 +13,10 @@ public class BallBrokenFloor
         minBrokenFloor = new Random().nextInt(1, nFloors + 1);
     }
 
+    public int getNFloors() {
+        return nFloors;
+    }
+
     public void checkFloor (int floor) throws Exception
     {
         if (floor > nFloors) {
