@@ -14,7 +14,7 @@ public class RangeTest
     Range range = Range.getRange(MIN, MAX);
 
     @Test
-    void wrongRangeCtreatingTest()
+    void wrongRangeCreatingTest()
     {
         assertThrowsExactly(IllegalArgumentException.class, () -> Range.getRange(MAX, MIN) );
     }
@@ -25,6 +25,7 @@ public class RangeTest
         range.checkNumber(55);
     }
 
+    @Test
     void wrongNumberTest() throws Exception
     {
         assertThrowsExactly(OutOfRangeMaxValueException.class,
