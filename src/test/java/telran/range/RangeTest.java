@@ -3,6 +3,7 @@ package telran.range;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
@@ -74,7 +75,8 @@ public class RangeTest
         Predicate<Integer> noMatchPredicate = x -> x > 10;
         range.setPredicate(noMatchPredicate);
         iterator = range.iterator();
-        assertFalse(iterator.hasNext());
+        assertThrowsExactly(NoSuchElementException.class, iterator::next);
+
 
         // Test case 5: Null predicate (should iterate over all numbers)
         range.setPredicate(null);
