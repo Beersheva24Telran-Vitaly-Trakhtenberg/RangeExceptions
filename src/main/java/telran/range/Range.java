@@ -54,23 +54,7 @@ public class Range implements Iterable<Integer>
 
         @Override
         public boolean hasNext() {
-            boolean res = false;
-            if (predicate == null) {
-                this.next_element = this.current;
-                res = this.next_element <= max;
-            } else {
-                int temp_сurrent = current;
-                while(temp_сurrent <= max) {
-                    if (predicate.test(temp_сurrent)) {
-                        next_element = temp_сurrent;
-                        res = true;
-                        break;
-                    }
-                    temp_сurrent++;
-                }
-            }
-
-            return res;
+            return current <= max;
         }
 
         @Override
@@ -78,8 +62,22 @@ public class Range implements Iterable<Integer>
             if (!hasNext()) {
                 throw new NoSuchElementException();
             }
-            this.current = next_element;
-            next_element = null;
+            boolean res = false;
+            if (predicate == null) {
+                res = true;
+            } else {
+                while(this.current <= max) {
+                    if (predicate.test(this.current)) {
+                        res = true;
+                        break;
+                    }
+                    this.current++;
+                }
+            }
+            if (!res) {
+                throw new NoSuchElementException();
+            }
+
             return this.current++;
         }
     }
