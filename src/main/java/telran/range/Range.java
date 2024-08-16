@@ -50,7 +50,6 @@ public class Range implements Iterable<Integer>
     private class RangeIterator implements Iterator<Integer>
     {
         private int current = min;
-        private Integer next_element = null;
 
         @Override
         public boolean hasNext() {
