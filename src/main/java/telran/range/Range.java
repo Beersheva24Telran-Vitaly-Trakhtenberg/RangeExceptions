@@ -50,12 +50,27 @@ public class Range implements Iterable<Integer>
     private class RangeIterator implements Iterator<Integer>
     {
         private int current = min;
+        private Integer next_element = null;
+
         @Override
         public boolean hasNext() {
-            while (current <= max && predicate != null && !predicate.test(current)) {
-                current++;
+            boolean res = false;
+            if (predicate == null) {
+                this.next_element = this.current;
+                res = this.next_element <= max;
+            } else {
+                int temp_сurrent = current;
+                while(temp_сurrent <= max) {
+                    if (predicate.test(temp_сurrent)) {
+                        next_element = temp_сurrent;
+                        res = true;
+                        break;
+                    }
+                    temp_сurrent++;
+                }
             }
-            return current <= max;
+
+            return res;
         }
 
         @Override
@@ -63,7 +78,9 @@ public class Range implements Iterable<Integer>
             if (!hasNext()) {
                 throw new NoSuchElementException();
             }
-            return current++;
+            this.current = next_element;
+            next_element = null;
+            return this.current++;
         }
     }
 }
