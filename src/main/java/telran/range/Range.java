@@ -72,16 +72,17 @@ public class Range implements Iterable<Integer>
             this.current = findNext(this.current+1);
             return res;
         }
-    }
 
-    private int findNext(int val)
-    {
-        while (val <= max) {
-            if (predicate == null || predicate.test(val)) {
-                break;
+        private int findNext(int val)
+        {
+            boolean flag_found = false;
+            while (val <= max && !flag_found) {
+                if (predicate == null || predicate.test(val)) {
+                    break;
+                }
+                val++;
             }
-            val++;
+            return val;
         }
-        return val;
     }
 }
